@@ -1,24 +1,8 @@
-# lcd-editor
+# LCD editor pro
 
-## Project setup
-```
-npm install
-```
+This is a classical lcd module editor that add support for multiple characters and multiples lcd sizes. 
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+Make with [Vue.js](https://vuejs.org/) and [Beercss](https://www.beercss.com/).
 
-### Compiles and minifies for production
-```
-npm run build
-```
 
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+[Linkedin](https://www.linkedin.com/in/adrian-neftali-sanchez-b027b9b7/) :)
