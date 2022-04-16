@@ -10,12 +10,13 @@ npm run build
 cd dist
 
 # if you are deploying to a custom domain
-echo 'opentronika.com' > CNAME
+echo 'opentronika.org' > CNAME
 
 git add -A
 git commit -m 'deploy'
 
 # if you are deploying to https://<USERNAME>.github.io/<REPO>
-git push -f git@https://github.com:lutgaru/lcd-editor-pro.git main:lcd-editor-pro
+git push origin `git subtree pull --prefix dist origin gh-pages`:gh-pages --force
+git subtree push --prefix dist origin gh-pages
 
 cd -
