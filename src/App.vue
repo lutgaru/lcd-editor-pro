@@ -41,7 +41,7 @@
     <article class="flat center-align large">
      <img src="./assets/opentronika.png" class="small-margin AboutImage">
      <h4 class="center-align">Opentronika</h4>
-     <h5 class="center-align AboutItem">The most advanced lcd module editor tha exist in the web</h5>
+     <h5 class="center-align AboutItem">The most advanced lcd module editor that exist in the web</h5>
      <h6 class="center-align">
        Made by lutgaru
      </h6>
