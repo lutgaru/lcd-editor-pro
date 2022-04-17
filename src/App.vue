@@ -16,12 +16,47 @@
         <div class="col right-align">
           <button class="wave light none white-text" @click="updateTheme()">
             <i class="blue-text">brightness_medium</i>
-            </button>
+          </button>
+          <button class="wave light none white-text" @click="showInfo()">
+            <i class="blue-text">info</i>
+          </button>
         </div>
       </div>
       
     <div class="modal medium no-scroll top"></div>
     <div class="modal top"></div>
+  </div>
+  <div id="info" v-if="this.showinfo" class="modal right large active">
+    <div class="row no-wrap">
+      <div class="col middle-align">
+      </div>
+      <div class="col center-align">
+      </div>
+      <div class="col right-align ">
+          <button class="wave light none white-text" @click="showInfo()">
+          <i class="blue-text">close</i>
+        </button>
+      </div>
+    </div>
+    <article class="flat center-align large">
+     <img src="./assets/opentronika.png" class="small-margin AboutImage">
+     <h4 class="center-align">Opentronika</h4>
+     <h5 class="center-align AboutItem">The most advanced lcd module editor tha exist in the web</h5>
+     <h6 class="center-align">
+       Made by lutgaru
+     </h6>
+     <a href="https://github.com/lutgaru/lcd-editor-pro" target="_blank">
+       <img class="tiny" src="./assets/github.svg" alt="">
+       <span class="AboutItem">Github</span>
+     </a>
+     <br>
+     <br>
+    <a href="https://www.linkedin.com/in/adrian-neftali-sanchez-b027b9b7/" target="_blank">
+      <img class="tiny" src="./assets/linkedin.svg" alt="">
+      <span class="AboutItem">Linkedin</span>
+    </a>
+      
+    </article>
   </div>
   <div  class="MainDiv">
       <LcdScreen :heightScreen=this.selected[1] 
@@ -33,32 +68,31 @@
     <div class="Menu medium-margin">
       <button class="border small" @click="toggleEdit()" :disabled="this.draworErase">
         <i>mode_edit</i>
-        <span>Dibujar</span>
+        <span>Draw</span>
       </button>
       <button class="border small" @click="toggleEdit()" :disabled="!this.draworErase">
         <i>remove_circle</i>
-        <span>Borrar</span>
+        <span>Eraser</span>
       </button>
       <button class="border small" @click="clearScreen()">
         <i>clear</i>
-        <span>Limpiar</span>
-      </button>
-            
+        <span>Clear</span>
+      </button>        
     </div>
     <div class="ItemMenu">
-        <h6 class="surface">LCD Size</h6>
-        <div class="field suffix round fill surface">
-          <select @change="changeLcdSize($event)" >
+      <h6 class="surface">LCD Size</h6>
+      <div class="field suffix round fill surface">
+        <select @change="changeLcdSize($event)" >
           <option v-for="size in lcdsizes" :key=size.text>
             {{size.text}}
           </option>
-          </select>
-          <i>arrow_drop_down</i>
-        </div>
-        <div v-if="this.eightwarnchar" class="toast orange white-text active">
-      <i>warning</i>
-      <span>More than 8 characters</span>
-    </div>
+        </select>
+        <i>arrow_drop_down</i>
+      </div>
+      <div v-if="this.eightwarnchar" class="toast orange white-text active">
+        <i>warning</i>
+        <span>More than 8 characters</span>
+      </div>
     </div>
     <article class="">
       <VueHighlightJS
@@ -95,6 +129,7 @@ export default {
             lcdkey:random(10),
             msg: '',
             draworErase: true,
+            showinfo:false,
             selected:[2,2],
             lcdsizes:[
               { text: '2x2', value: [2,2] },
@@ -138,6 +173,9 @@ export default {
         
         document.body.className = this.theme;
 
+      },
+      showInfo(){
+        this.showinfo=!this.showinfo
       }
 
   },
@@ -182,6 +220,13 @@ export default {
   align-content: center;
   display: flex;
   justify-content: center;
+}
+.AboutImage{
+  height: 120rem;
+  width: 120rem;
+}
+.AboutItem{
+  padding: 10pt;
 }
 
 </style>
