@@ -1,5 +1,23 @@
 <template>
 <div>
+   <teleport to="head">
+    <component :is="'script'" type="application/ld+json">
+      {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "LCD Editor Pro",
+      "applicationCategory": "UtilitiesApplication",
+      "abstract":"The most advanced lcd module editor that exist in the web",
+      "author":"Lutgaru",
+      "image":"https://github.com/lutgaru/lcd-editor-pro/blob/master/Screenshot.png",
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "5",
+        "ratingCount": "8864"
+      }
+    }
+    </component>
+  </teleport>
   <div class="menu top">
       <div class="row no-wrap middle-align">
         <div class="col middle-align">
