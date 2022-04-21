@@ -2,14 +2,20 @@
 <div>
    <teleport to="head">
     <component :is="'script'" type="application/ld+json">
-      {
+    {
       "@context": "https://schema.org",
-      "@type": "SoftwareApplication",
+      "@type": ["SoftwareApplication","WebApplication"],
       "name": "LCD Editor Pro",
       "applicationCategory": "UtilitiesApplication",
       "abstract":"The most advanced lcd module editor that exist in the web",
       "author":"Lutgaru",
+      "operatingSystem":"all",
       "image":"https://github.com/lutgaru/lcd-editor-pro/blob/master/Screenshot.png",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
       "aggregateRating": {
         "@type": "AggregateRating",
         "ratingValue": "5",
