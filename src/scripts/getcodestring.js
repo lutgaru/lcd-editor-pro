@@ -2,25 +2,18 @@
 * @param {boolean array} LCD characters array
 * @returns {String} Returns the code in string. 
 */
-// function isEqualarray(array1,array2){
-//     if (array1.length !== array2.length) return false
 
-//     let frequencyCounter1 = {}
-//     let frequencyCounter2 = {}
+import defaultCharsA03 from '../data/charsA03.json';
+import defaultCharsA04 from '../data/charsA04.json';
 
-//     for(let i;i<array1.length;i++){
-//         frequencyCounter1[array1[i]] = frequencyCounter1[array1[i]] + 1 || 1;
-//         frequencyCounter2[array2[i]] = frequencyCounter2[array2[i]] + 1 || 1;
-//     }
+function isCharValid(charitem) {
+    if(!Array.isArray(charitem)) return 0;//check if char
+    if(!charitem.flat().some(item => item !== 0)) return 0;//check if blank char
+    if(defaultCharsA03[charitem.flat().join('')]!= undefined) return 0
+    if(defaultCharsA04[charitem.flat().join('')]!= undefined) return 0
+    return 1
+}
 
-//     for (let key in frequencyCounter1) {
-//         if (!(key ** 2 in frequencyCounter2)) return false
-    
-//         if (frequencyCounter1[key] !== frequencyCounter2[key ** 2]) return false
-//       }
-    
-//       return true
-// }
 
 function getCodeString(characters){
     var linetext='';
@@ -28,8 +21,7 @@ function getCodeString(characters){
     var Charcount=0;
     for(let LCDcolum=0; LCDcolum<characters.length;LCDcolum++){
         for(let LCDrow=0; LCDrow<characters[LCDcolum].length;LCDrow++){
-            if(!Array.isArray(characters[LCDcolum][LCDrow]))continue;//check if char
-            if(!characters[LCDcolum][LCDrow].some(item => item !== 0))continue;//check if blank char
+            if(!isCharValid(characters[LCDcolum][LCDrow])) continue
             Charsvalids[characters[LCDcolum][LCDrow].toString()]=characters[LCDcolum][LCDrow];
             //console.log(Charsvalids);
         }
@@ -43,7 +35,7 @@ function getCodeString(characters){
         linetext=linetext.concat('B',line.join(''));
         linetext=linetext.concat(',\n');
         })
-        linetext=linetext.concat('};\n');   
+        linetext=linetext.concat('},\n');   
     }
     return [linetext,Object.keys(Charsvalids).length];
 }

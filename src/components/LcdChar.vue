@@ -1,28 +1,34 @@
 <template>
-<div>
-    <div v-for="(chars, indexchars) in charData" :key="'F2'+indexchars" style="display: flex;">
-        <div 
-        v-on:mouseover="colorPoint(indexchars ,indexchar)" 
-        v-for="(char, indexchar) in chars" 
-        :key="'C'+indexchar" 
-        v-bind:class="{cuadradopintado:char,cuadrado:!char}"></div>
+<div style="display: flex" >
+    <div >
+        <div v-for="(chars, indexchars) in charDatadef" :key="'F2'+indexchars" style="display: flex;">
+            <div 
+            v-on:mouseover="colorPoint(indexchars ,indexchar)" 
+            v-for="(char, indexchar) in chars" 
+            :key="'C'+indexchar" 
+            v-bind:class="{cuadradopintado:char,cuadrado:!char}"></div>
+        </div>
     </div>
-</div>
+ </div>
+
 </template>
 
 <script>
 export default {
     name: 'LcdChar',
+
     data(){
         return{
-            charData:  Array.from(Array(this.heightChar), () => new Array(this.widthChar).fill(0)),
             isMouseDown: false,
+            charData: this.charDatadef
         }
     },
     props: {
         heightChar: Number,
         widthChar: Number,
+        charDatadef: Array,
         draworErase: Boolean,
+        widthcharstable: Boolean,
     },
     methods: {
         colorPoint: function (k,n) {
@@ -37,7 +43,7 @@ export default {
             this.charData[k][n]=0
             }
             this.$emit('changeCharacter',this.charData)
-        }
+        },
     },
     mounted () {
     
@@ -53,6 +59,12 @@ export default {
         document.removeEventListener('mouseup', () => ({}))
         document.removeEventListener('mousedown', () => ({}))
     },
+    events:{
+        'selectdefchar':function(charsel){ 
+            this.charData =  charsel;
+        }
+    }
+    
 }
 </script>
 
@@ -77,4 +89,17 @@ export default {
   border: 1px solid black;
 }
 
+.customselect{
+  background: #40c320
+}
+
+.customtablebutton{
+width: 10pt;
+height: 10pt;
+min-width: 16pt;
+padding: 0pt;
+margin: 0pt;
+height: 16pt;
+min-height: 16pt;
+}
 </style>

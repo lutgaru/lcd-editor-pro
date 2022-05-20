@@ -83,11 +83,14 @@
     </article>
   </div>
   <div  class="MainDiv">
+    <CharsTable v-if="showscreentable" @selectCharacter="selectCharacter"/>
       <LcdScreen :heightScreen=this.selected[1] 
       :widthScreen=this.selected[0] 
       @changeCharacters="updateCode($event)"
       :draworErase="this.draworErase"
-      :key="lcdkey" />
+      :widthCharstable="this.showscreentable"
+      :key="lcdkey" 
+      :defaultchartosel="this.selectchar"/>
     </div>
     <div class="Menu medium-margin">
       <button class="border small" @click="toggleEdit()" :disabled="this.draworErase">
@@ -101,7 +104,11 @@
       <button class="border small" @click="clearScreen()">
         <i>clear</i>
         <span>Clear</span>
-      </button>        
+      </button>      
+      <label class="switch" >
+        <input type="checkbox" @click="toggleScreenchars()">
+        <span>Enable chars table</span>
+      </label>  
     </div>
     <div class="ItemMenu">
       <h6 class="surface">LCD Size</h6>
@@ -143,14 +150,13 @@ import "material-dynamic-colors";
 hljs.registerLanguage('c', c);
 import 'highlight.js/styles/a11y-dark.css';
 //import 'highlight.js/styles/stackoverflow-light.css';
-import random from 'lodash/random';
 import getCodeString from './scripts/getcodestring.js'
-
+import CharsTable from './components/charstable.vue'
 export default {
   name: 'App',
   data(){
         return{
-            lcdkey:random(10),
+            lcdkey:0,
             msg: '',
             draworErase: true,
             showinfo:false,
@@ -163,9 +169,12 @@ export default {
             ],
             theme: "is-dark",
             eightwarnchar: false,
+            showscreentable: false,
+            selectchar:Array(8)
         }
     },
   components: {
+    CharsTable,
     LcdScreen,
     VueHighlightJS :hljsVuePlugin.component
   },
@@ -178,12 +187,13 @@ export default {
       },
       changeLcdSize(event){
         this.selected=this.lcdsizes[event.target.selectedIndex].value
+        this.clearScreen()
       },
       toggleEdit(){
         this.draworErase=!this.draworErase
       },
       clearScreen(){
-        this.lcdkey=random(10)
+        this.lcdkey=this.lcdkey+1
         this.msg=''
         this.eightwarnchar=false
       },
@@ -200,6 +210,12 @@ export default {
       },
       showInfo(){
         this.showinfo=!this.showinfo
+      },
+      toggleScreenchars(){
+        this.showscreentable=!this.showscreentable
+      },
+      selectCharacter:function(charsel){
+      this.selectchar=charsel
       }
 
   },

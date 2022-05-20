@@ -1,12 +1,16 @@
 <template>
     <div class="Screen" v-if="screenChars">
         <div v-for="(chars, indexchars) in this.screenChars" :key="this.randomkey+indexchars" style="display: flex;">
-        <LcdChar :heightChar=8 :widthChar=5 
+        <LcdChar :heightChar=8 :widthChar=5 :charDatadef="this.screenChars[indexchars][indexchar]" 
         :draworErase="this.draworErase"
+        :widthcharstable="this.widthCharstable"
         v-for="(char, indexchar) in chars" 
         :key="this.randomkey+indexchar+indexchars" class="Screenchars"
-        @changeCharacter="changeCharacter($event,indexchars,indexchar)" />
+        @changeCharacter="changeCharacter($event,indexchars,indexchar)"
+        v-bind:class="{selectedchar:selectechar[indexchars][indexchar]}"
+        @click="updateselect(indexchars,indexchar)"/>
     </div>
+    
     </div>
 </template>
 
@@ -22,27 +26,49 @@ export default {
     data(){
         return{
             randomkey: random(1000) ,
-            screenChars:  Array.from(Array(this.heightScreen), () => new Array(this.widthScreen).fill(NaN)),
-            //unicChars:[[]]
+            screenChars: this.createNDimArray([this.heightScreen,this.widthScreen,8,5]),//Array.from(Array(this.heightScreen), () => new Array(this.widthScreen).fill(
+            selectechar: this.createNDimArray([this.heightScreen,this.widthScreen]),
+            lastselectedchar:[0,0]
         }
     },
     props: {
         heightScreen: Number,
         widthScreen: Number,
         draworErase: Boolean,
+        widthCharstable:Boolean,
+        defaultchartosel:Array,
     },
     methods:{
         changeCharacter(evento,indexchars,indexchar){
             this.screenChars[indexchars][indexchar]=evento
             this.$emit('changeCharacters',this.screenChars)
+        },
+        createNDimArray(dimensions) {
+            if (dimensions.length > 0) {
+                var dim = dimensions[0];
+                var rest = dimensions.slice(1);
+                var newArray = new Array();
+                for (var i = 0; i < dim; i++) {
+                    newArray[i] = this.createNDimArray(rest);
+                }
+                return newArray;
+            } else {
+                return 0;
+            }
+        },
+        updateselect(inchars,inchar){
+            this.selectechar[this.lastselectedchar[0]][this.lastselectedchar[1]]=0 
+            this.selectechar[inchars][inchar]=1
+            this.lastselectedchar=[inchars,inchar]
         }
-
     },
     watch:{
-        widthScreen: function (val){
+        widthScreen: function (){
             this.randomkey= random(1000)
-            this.screenChars=Array.from(Array(this.heightScreen), () => new Array(val).fill(NaN))
             //this.$forceUpdate();
+        },
+        defaultchartosel: function(){
+            this.screenChars[this.lastselectedchar[0]][this.lastselectedchar[1]]=this.defaultchartosel
         }
     }
 }
@@ -51,6 +77,9 @@ export default {
 <style>
 .Screenchars{
     padding: 5px;
+}
+.selectedchar{
+background: #a4ff50;
 }
 .Screen{
     border: 1px solid;
