@@ -10,7 +10,7 @@
       "abstract":"The most advanced lcd module editor that exist in the web",
       "author":"Lutgaru",
       "operatingSystem":"all",
-      "image":"https://github.com/lutgaru/lcd-editor-pro/blob/master/Screenshot.png",
+      "image":"https://raw.githubusercontent.com/lutgaru/lcd-editor-pro/master/Screenshot.png",
       "offers": {
         "@type": "Offer",
         "price": "0",
@@ -79,6 +79,7 @@
       <img class="tiny" src="./assets/linkedin.svg" alt="">
       <span class="AboutItem">Linkedin</span>
     </a>
+
       
     </article>
   </div>
